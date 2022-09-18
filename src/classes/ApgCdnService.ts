@@ -4,7 +4,7 @@
  * @version 0.9.1 [APG 2022/09/19] Deno Deploy Beta
  * -----------------------------------------------------------------------
  */
-import { StdPath } from "../../../TNG/deps.ts";
+import { StdPath } from "../../deps.ts";
 
 export class ApgCdnService {
 
