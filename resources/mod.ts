@@ -1,8 +1,6 @@
 /** -----------------------------------------------------------------------
- * @module [Tng/Resource]
+ * @module [Cdn/resources]
  * @author [APG] ANGELI Paolo Giusto
  * -----------------------------------------------------------------------
  */
-export * from "./src/TngHomeResource.ts";
-export * from "./src/TngAaBasicExampleResource.ts";
-export * from "./src/TngAaBasicTutorialResource.ts";
+export * from "./src/ApgCdnHomeResource.ts";
