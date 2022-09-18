@@ -8,7 +8,8 @@ export const resources: typeof Drash.Resource[] = [
     Edr.ApgEdrPublicTextFileResource,
     Edr.ApgEdrPublicBinFileResource,
 
-    // Tng
+    // Cdn
     res.ApgCdnHomeResource,
+    res.ApgCdnTypeResource,
 
 ];

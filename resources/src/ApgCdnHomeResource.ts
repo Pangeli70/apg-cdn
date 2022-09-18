@@ -5,6 +5,9 @@
  * -----------------------------------------------------------------------
  */
 import { Drash, Tng } from "../../deps.ts";
+import { ApgCdnService } from "../../src/mod.ts";
+import { ApgCdnCommonData } from "../data/ApgCdnCommonData.ts";
+
 
 
 export class ApgCdnHomeResource extends Drash.Resource {
@@ -13,34 +16,16 @@ export class ApgCdnHomeResource extends Drash.Resource {
 
     public async GET(_request: Drash.Request, response: Drash.Response) {
 
+        const resources = ApgCdnService.Resources();
+
         const templateData = {
-            site: {
-                name: 'Apg-Cdn',
-                title: 'My Personal CDN based on Deno Deploy'
-            },
+            site: ApgCdnCommonData.site,
             page: {
-                title: " Home",
+                title: "Available content by file extension",
                 toolbar: "",
                 released: "2022/09/19"
             },
-            content: [
-                {
-                    folder: "css",
-                    items: [ "pico-custom.css"]
-                },
-                {
-                    folder: "img/ico",
-                    items: ["apg-favicon.ico"]
-                },
-                {
-                    folder: "img/jpg",
-                    items: ["apg-2016.jpg"]
-                },
-                {
-                    folder: "img/png",
-                    items: ["apg-logo-2022-48px.jpg", "apg-logo-2022-48px.jpg"]
-                }
-            ],
+            resources
         };
 
         const html = await Tng.ApgTngService.Render("/home.html", templateData) as string;

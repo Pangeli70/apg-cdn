@@ -7,6 +7,7 @@
 import { Drash, Tng, Uts } from "./deps.ts";
 import { resources } from "./res.ts";
 import { services } from "./svcs.ts";
+import { ApgCdnService } from "./mod.ts";
 
 const SERVER_INFO: Uts.IApgUtsServerInfo = {
   name: 'Apg-Cdn',
@@ -14,6 +15,8 @@ const SERVER_INFO: Uts.IApgUtsServerInfo = {
   subtitle: '',
   localPort: 49603
 }
+
+await ApgCdnService.GetAssets("./public");
 
 Tng.ApgTngService.Init("./templates", {
   useCache: false,

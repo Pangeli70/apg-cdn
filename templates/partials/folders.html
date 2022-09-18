@@ -1,0 +1,15 @@
+<section style="width:80%; margin: auto;">
+    <h2 style="text-align: center;">
+    <% for (let i in resources) {%>
+
+        <% if (i > 0) {%>
+            |
+        <% } %>
+        
+        <a href="/type/<% resources[i].type %>">
+            <% resources[i].type %>
+        </a>
+
+        <% } %>
+    </h2>
+</section>
