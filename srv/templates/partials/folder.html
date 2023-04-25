@@ -13,9 +13,11 @@
             <% const resource=`${folder.name}/${file}`%>
             <td ><% file %></td>
             <td style="text-align: right;">
-                <a href="<% `/${resource}` %>"><img src="https://cdn-icons-png.flaticon.com/32/5656/5656148.png"></a>
+                <a href="<% resource %>" title="view" >
+                    <img src="https://cdn-icons-png.flaticon.com/32/5656/5656148.png" title="preview">
+                </a>
                 <% const toClipboard=`${site.deployRoot}${resource}`%>
-                <img src="https://cdn-icons-png.flaticon.com/32/5339/5339947.png"
+                <img src="https://cdn-icons-png.flaticon.com/32/5339/5339947.png" title="copy to clipbloard"
                     onclick="copyToClipboard('<% toClipboard %>')" >
             </td>
         </tr>
