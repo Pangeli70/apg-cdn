@@ -28,7 +28,8 @@ export class ApgCdnTypeResource extends Drash.Resource {
         const templateData = {
             site: {
                 name: SERVER_INFO.caption,
-                title: SERVER_INFO.title
+                title: SERVER_INFO.title,
+                deployRoot: "https://apg-cdn.deno.dev"
             },
             page: {
                 title: "Files available for type: " + reqType,

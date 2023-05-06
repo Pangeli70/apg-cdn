@@ -5,14 +5,20 @@
  * @version 0.9.7 [APG 2023/04/25] Separation of concerns lib/srv
  * -----------------------------------------------------------------------
  */
-import { Drash, Tng, Uts, Dir } from "./srv/deps.ts";
-import { resources } from "./srv/res.ts";
-import { services } from "./srv/svc.ts";
+import { Drash, Tng, Uts, Dir , Edr, Lgr} from "./srv/deps.ts";
+import { ApgCdnResources } from "./srv/res.ts";
+import { ApgCdnServices } from "./srv/svc.ts";
 import { Cdn } from "./mod.ts";
 
-const SERVER_INFO = Dir.ApgDirGetServerInfo(Dir.ApgDirEntries[Dir.eApgDirEntriesIds.cdn]);
+Edr.ApgEdrService.Init({
+  assetsFolder: "./srv"
+});
+
+Lgr.ApgLgr.AddConsoleTransport();
 
 await Cdn.ApgCdnService.GetAssets("./srv/assets");
+
+const SERVER_INFO = Dir.ApgDirGetServerInfo(Dir.ApgDirEntries[Dir.eApgDirEntriesIds.cdn]);
 
 const remoteTngHost = "";
 
@@ -27,8 +33,8 @@ Tng.ApgTngService.Init("./srv/templates", remoteTngHost, {
 const server = new Drash.Server({
   hostname: '0.0.0.0',
   port: SERVER_INFO.localPort,
-  resources: resources,
-  services: services,
+  resources: ApgCdnResources,
+  services: ApgCdnServices,
   protocol: "http"
 });
 

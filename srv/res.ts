@@ -11,11 +11,11 @@ import { ApgCdnHomeResource } from "./resources/ApgCdnHomeResource.ts";
 import { ApgCdnTypeResource } from "./resources/ApgCdnTypeResource.ts";
 
 
-export const resources: typeof Drash.Resource[] = [
+export const ApgCdnResources: typeof Drash.Resource[] = [
 
     // Static
-    Edr.ApgEdrPublicTextFileResource,
-    Edr.ApgEdrPublicBinFileResource,
+    Edr.ApgEdrAssetBinFileResource,
+    Edr.ApgEdrAssetsTextFileResource,
 
     // Cdn
     ApgCdnHomeResource,
