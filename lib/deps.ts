@@ -5,6 +5,6 @@
  * ------------------------------------------------------------------------
 */
 
-// https://deno.land/std
-export * as StdPath from "https://deno.land/std@0.180.0/path/mod.ts";
+// Apg github repos
+export * as Uts from "https://raw.githubusercontent.com/Pangeli70/apg-uts/master/mod.ts";
 

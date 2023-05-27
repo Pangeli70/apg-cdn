@@ -5,10 +5,8 @@
  * @version 0.9.7 [APG 2023/04/25] Separation of concerns lib/srv
  * -----------------------------------------------------------------------
  */
-import { Drash, Tng, Uts, Dir , Edr, Lgr} from "./srv/deps.ts";
-import { ApgCdnResources } from "./srv/res.ts";
-import { ApgCdnServices } from "./srv/svc.ts";
-import { Cdn } from "./mod.ts";
+import { Cdn, Tng, Uts, Dir , Edr, Lgr} from "./srv/deps.ts";
+import { ApgCdnResources, ApgCdnServices } from "./srv/mod.ts";
 
 Edr.ApgEdrService.Init({
   assetsFolder: "./srv"
@@ -18,7 +16,7 @@ Lgr.ApgLgr.AddConsoleTransport();
 
 await Cdn.ApgCdnService.GetAssets("./srv/assets");
 
-const SERVER_INFO = Dir.ApgDirGetServerInfo(Dir.ApgDirEntries[Dir.eApgDirEntriesIds.cdn]);
+const serverInfo = Dir.ApgDirServer.GetInfo(Dir.eApgDirEntriesIds.cdn);
 
 const remoteTngHost = "";
 
@@ -30,9 +28,9 @@ Tng.ApgTngService.Init("./srv/templates", remoteTngHost, {
   endMarkup: "%>"
 });
 
-const server = new Drash.Server({
+const server = new Edr.Drash.Server({
   hostname: '0.0.0.0',
-  port: SERVER_INFO.localPort,
+  port: serverInfo.localPort,
   resources: ApgCdnResources,
   services: ApgCdnServices,
   protocol: "http"
@@ -40,6 +38,6 @@ const server = new Drash.Server({
 
 server.run();
 
-Uts.ApgUtsServer.StartupResume(SERVER_INFO);
+Dir.ApgDirServer.StartupResume(serverInfo);
 
 

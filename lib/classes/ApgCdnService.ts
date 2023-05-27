@@ -5,7 +5,7 @@
  * @version 0.9.7 [APG 2023/04/25] Separation of concerns lib/srv
  * -----------------------------------------------------------------------
  */
-import { StdPath } from "../deps.ts";
+import { Uts } from "../deps.ts";
 
 export class ApgCdnService {
 
@@ -14,14 +14,14 @@ export class ApgCdnService {
     // WARNING Using nested maps we can catch easily misplaced files --APG 20220919
     static async GetAssets(afolder: string, ) {
 
-        const dirEntries = Deno.readDir(StdPath.normalize(afolder));
+        const dirEntries = Deno.readDir(Uts.Std.Path.normalize(afolder));
         for await (const dirEntry of dirEntries) {
             if (dirEntry.isDirectory) {
                 this.GetAssets(afolder + "/" + dirEntry.name);
             }
             else {
                 if (dirEntry.isFile) {
-                    const fileExt = StdPath.extname(dirEntry.name);
+                    const fileExt = Uts.Std.Path.extname(dirEntry.name);
                     if (!this.#resources.has(fileExt)) {
                         this.#resources.set(fileExt, new Map());
                     }
