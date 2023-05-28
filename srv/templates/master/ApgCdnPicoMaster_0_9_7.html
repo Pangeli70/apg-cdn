@@ -8,7 +8,7 @@
 
   <head>
     <title>
-      <% site.name %>: <% site.version %>
+      <% _site_.name %>: <% _site_.version %>
     </title>
     <meta charset="UTF-8" />
     <meta content="IE=edge" />
@@ -18,7 +18,7 @@
     <meta name="author" content="APG Angeli Paolo Giusto" />
     <meta name="generator" content="Deno+Drash" />
     <meta name="keywords" content="Deno, Drash, APG, Angeli Paolo Giusto, Paolo Angeli" />
-    <meta name="application-name" content="<% site.name %>" />
+    <meta name="application-name" content="<% _site_.name %>" />
 
     <!-- Favicon -->
     <!-- <link rel="shortcut icon" type="image/x-icon"
@@ -51,12 +51,12 @@
             </td>
             <td>
               <h2 style="margin-bottom: 0px">
-                <% site.name %>
+                <% _site_.name %>
                   <span style="font-size: 20%">
-                    <% site.version %>
+                    <% _site_.version %>
                   </span><br>
                   <span style="font-size: 50%">
-                    <% site.title %>
+                    <% _site_.title %>
                   </span>
               </h2>
             </td>
@@ -64,15 +64,15 @@
         </table>
       </section>
 
-      <% if ( page.toolbar ) {%>
+      <% if ( _page_.toolbar ) {%>
         <section id="bar" style="text-align: center;">
-          <% page.toolbar %>
+          <% _page_.toolbar %>
             <hr>
         </section>
         <% } %>
 
           <h1 class="apg-page-title">
-            <% page.title %>
+            <% _page_.title %>
           </h1>
 
     </header>
@@ -92,7 +92,7 @@
             <a href="https://drash.land/" target="_blank"> Drash</a>,
             <a href="https://www.picocss.com/" target="_blank">Pico Css</a><br />
             SSR HTML by <a href="https://apg-cdn.deno.tng" target="_blank">Apg-Tng</a><br />
-            Page released: <% page.released %>
+            Page released: <% _page_.released %>
           </em>
         </p>
       </section>

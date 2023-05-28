@@ -1,5 +1,5 @@
 /** -----------------------------------------------------------------------
- * @module [Cdn]
+ * @module [apg-cdn]
  * @author [APG] ANGELI Paolo Giusto
  * @version 0.9.1 [APG 2022/09/19] Deno Deploy Beta
  * @version 0.9.7 [APG 2023/04/25] Separation of concerns lib/srv
@@ -7,12 +7,23 @@
  */
 import { Uts } from "../deps.ts";
 
+interface IApgCdnFolder {
+    name: string;
+    files: string[],
+}
+
+type TApgCdnAssets = Record<string, IApgCdnFolder[]>;
+
 export class ApgCdnService {
 
-    static #resources: Map<string, Map<string, string[]>> =  new Map();
+    /**  */
+    //private static _assets: Map<string, Map<string, string[]>> =  new Map();
+    private static _assets: TApgCdnAssets = {};
+
+    static get Assets() { return this._assets; }
 
     // WARNING Using nested maps we can catch easily misplaced files --APG 20220919
-    static async GetAssets(afolder: string, ) {
+    static async GetAssets(afolder: string,) {
 
         const dirEntries = Deno.readDir(Uts.Std.Path.normalize(afolder));
         for await (const dirEntry of dirEntries) {
@@ -21,37 +32,38 @@ export class ApgCdnService {
             }
             else {
                 if (dirEntry.isFile) {
+
                     const fileExt = Uts.Std.Path.extname(dirEntry.name);
-                    if (!this.#resources.has(fileExt)) {
-                        this.#resources.set(fileExt, new Map());
+
+                    if (!this._assets[fileExt]) {
+                        this._assets[fileExt] = [];
                     }
-                    const foldersMap = this.#resources.get(fileExt);
-                    if (!foldersMap!.has(afolder)) {
-                        foldersMap!.set(afolder, []);
+                    const assetFolders = this._assets[fileExt];
+
+                    let addFolder = assetFolders.length == 0;
+
+                    if (!addFolder) {
+                        const index = assetFolders.findIndex(a => a.name == afolder)
+                        if (index == -1) {
+                            addFolder = true;
+                        }
                     }
-                    const fileEntries = foldersMap?.get(afolder);
-                    fileEntries?.push(dirEntry.name);
+
+                    if (addFolder) {
+                        const folder = {
+                            name: afolder,
+                            files: []
+                        };
+                        this._assets[fileExt].push(folder);
+                    }
+
+                    const index = assetFolders.findIndex(a => a.name == afolder)
+
+                    this._assets[fileExt][index].files.push(dirEntry.name);
                 }
             }
         }
     }
 
-    // WARNING Smell This is a DTO... But we can't pass maps directly to Tng --APG 20220919
-    static Resources() { 
-        const r: any[] = [];
-        for (const extKey of this.#resources.keys()) { 
-            const fileType: any = {};
-            fileType.type = extKey;
-            fileType.folders = [];
-            r.push(fileType);
-            const folders = this.#resources.get(extKey);
-            for (const folderKey of folders!.keys()) {
-                const folder: any = {};
-                folder.name = folderKey;
-                folder.files = folders!.get(folderKey);
-                fileType.folders.push(folder);
-            }
-        }
-        return r;
-    }
+
 }

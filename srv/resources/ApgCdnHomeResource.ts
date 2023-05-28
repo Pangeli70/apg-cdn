@@ -14,24 +14,24 @@ export class ApgCdnHomeResource extends Edr.Drash.Resource {
 
     public async GET(_request: Edr.Drash.Request, response: Edr.Drash.Response) {
 
-        const resources = Cdn.ApgCdnService.Resources();
+        const _extensions_ = Object.keys(Cdn.ApgCdnService.Assets);
 
         const serverInfo = Dir.ApgDirServer.GetInfo(Dir.eApgDirEntriesIds.cdn);
 
         const templateData = {
-            site: {
+            _site_: {
                 name: serverInfo.caption,
                 title: serverInfo.title
             },
-            page: {
+            _page_: {
                 title: "Available content by file extension",
                 toolbar: "",
                 released: "2022/09/19"
             },
-            resources
+            _extensions_
         };
 
-        const html = await Tng.ApgTngService.Render("/home.html", templateData) as string;
+        const html = await Tng.ApgTngService.Render("/ApgCdnHomePage.html", templateData) as string;
 
         response.html(html);
 

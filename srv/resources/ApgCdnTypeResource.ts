@@ -13,33 +13,28 @@ export class ApgCdnTypeResource extends Edr.Drash.Resource {
 
     public async GET(request: Edr.Drash.Request, response: Edr.Drash.Response) {
 
-        const reqType = request.pathParam("type");
+        const rawType = request.pathParam("type");
 
-        // TODO Performance Add parameter to this method to filter relevant data --APG 20220919
-        const resources = Cdn.ApgCdnService.Resources();
-        const folderIndex = resources.findIndex((atype) => {
-            return atype.type == reqType;
-        });
-        const resourcesOfType = resources[folderIndex];
+        const _foldersByExtension_ = Cdn.ApgCdnService.Assets[rawType!];
 
         const serverInfo = Dir.ApgDirServer.GetInfo(Dir.eApgDirEntriesIds.cdn);
 
         const templateData = {
-            site: {
+            _site_: {
                 name: serverInfo.caption,
                 title: serverInfo.title,
                 deployRoot: "https://apg-cdn.deno.dev"
             },
-            page: {
-                title: "Files available for type: " + reqType,
+            _page_: {
+                title: "Assets of type: " + rawType,
                 toolbar: "",
                 released: "2022/09/19"
             },
-            type: resourcesOfType.type,
-            folders: resourcesOfType.folders
+            _extension_: rawType,
+            _foldersByExtension_
         };
 
-        const html = await Tng.ApgTngService.Render("/type.html", templateData) as string;
+        const html = await Tng.ApgTngService.Render("/ApgCdnTypePage.html", templateData) as string;
 
         response.html(html);
 

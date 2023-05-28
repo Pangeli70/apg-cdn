@@ -4,20 +4,20 @@
         alert("Copied to clipboard:\\n" + atext)
     }
 </script>
-<% for (const folder of folders) { %>
-    <h3>Resources in folder: <% folder.name %>
-    </h3>
+
+<% for (const folder of _foldersByExtension_ ) { %>
+    <% const root = folder.name.replaceAll("./srv",""); %>
+    <h4>Folder: <% root %></h4>
     <table>
     <% for (const file of folder.files) { %>
         <tr style="width:100%">
-            <% const root = folder.name.replaceAll("./srv",""); %>
             <% const resource = (`${root}/${file}`) %>
             <td ><% file %></td>
             <td style="text-align: right;">
                 <a href="<% resource %>" title="view"  >
                     <img src="https://cdn-icons-png.flaticon.com/32/5656/5656148.png" title="preview" style="background-color: white;">
                 </a>
-                <% const toClipboard=`${site.deployRoot}${resource}`%>
+                <% const toClipboard=`${_site_.deployRoot}${resource}`%>
                 <img src="https://cdn-icons-png.flaticon.com/32/5339/5339947.png" title="copy to clipbloard" style="background-color: white;" onclick="copyToClipboard('<% toClipboard %>')" >
             </td>
         </tr>

@@ -1,13 +1,14 @@
+<!-- ApgCdnAssetsPartial -->
 <section style="width:80%; margin: auto;">
     <h2 style="text-align: center;">
-    <% for (let i in resources) {%>
+    <% for (let i in _extensions_ ) {%>
 
         <% if (i > 0) {%>
             |
         <% } %>
         
-        <a href="/type/<% resources[i].type %>">
-            <% resources[i].type %>
+        <a href="/type/<% _extensions_[i] %>">
+            <% _extensions_[i] %>
         </a>
 
         <% } %>
