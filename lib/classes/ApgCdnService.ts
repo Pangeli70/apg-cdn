@@ -6,18 +6,11 @@
  * -----------------------------------------------------------------------
  */
 import { Uts } from "../deps.ts";
-
-interface IApgCdnFolder {
-    name: string;
-    files: string[],
-}
-
-type TApgCdnAssets = Record<string, IApgCdnFolder[]>;
+import { TApgCdnAssets } from "../types/TApgCdnTypes.ts";
 
 export class ApgCdnService {
 
-    /**  */
-    //private static _assets: Map<string, Map<string, string[]>> =  new Map();
+
     private static _assets: TApgCdnAssets = {};
 
     static get Assets() { return this._assets; }
