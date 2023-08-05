@@ -10,11 +10,12 @@
             "type": "node",
             "program": "${workspaceFolder}/server.ts",
             "cwd": "${workspaceFolder}",
-            "runtimeExecutable": "C:\\Users\\pange\\.deno\\bin\\deno.EXE",
+            "runtimeExecutable": "deno",
             "runtimeArgs": [
                 "run",
                 "--inspect-brk",
-                "--allow-all"
+                "--allow-all",
+                "--watch"
             ],
             "attachSimplePort": 9229
         }
